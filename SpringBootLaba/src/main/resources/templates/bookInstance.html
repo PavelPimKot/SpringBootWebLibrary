@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>BOOK_INST_FIELDS</td>
+        <td>ID</td>
+        <td>ISSUED</td>
+    </tr>
+    <form th:action="changeBookInstance" th:object="${CurrentBookInst}" method="GET">
+        <br/>
+        <tr>
+            <td> BookInstance </a></td>
+            <td><input type=text readonly th:field="*{id}"/></td>
+            <td><input type=text th:field="*{issued}"/></td>
+            <td><input type="submit" value=" Подтвердить изменения "/></td>
+        </tr>
+    </form>
+</table>
+<br/>
+<form th:action="deleteBookInstance" th:object="${CurrentBookInst}" method="GET">
+    <input type=hidden th:field="*{id}">
+    <br/>
+    <input type=submit value="Удалить данный экземпляр" >
+</form>
+<br/>
+<br/>
+<a href="/book" th:href="@{/book/{id}(id = ${CurrentBookInst.getBook().id})}"> Book </a>
+<br/>
+<br/>
+<br/>
+<a href="/home"> Начальная страница </a>
+</body>
+</html>

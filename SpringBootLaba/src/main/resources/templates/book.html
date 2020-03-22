@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table border="1">
+    <br/>
+    <tr>
+        <td>BOOK_FIELDS</td>
+        <td>ID</td>
+        <td>AUTHORS</td>
+        <td>TITLE</td>
+        <td>PAGES_NUMBER</td>
+        <td>PUBLISHING_YEAR</td>
+    </tr>
+    <tr>
+        <form  th:action="changeBook" th:object="${CurrentBook}" method="GET">
+            <td> Book </a></td>
+            <td><input type=text readonly th:field="*{id}"/></td>
+            <td><input type=text th:field="*{authors}"/></td>
+            <td><input type=text th:field="*{title}"/></td>
+            <td><input type=number th:field="*{pagesNumber}"/></td>
+            <td><input type=number th:field="*{publishingYear}"/></td>
+            <td><input type="submit" value=" Подтвердить изменения "/></td>
+        </form>
+    </tr>
+</table>
+<form th:action="deleteBook" th:object="${CurrentBook}" method="GET">
+    <input type=hidden th:field="*{id}">
+    <br/>
+    <input type=submit value="Удалить данную книгу" >
+</form>
+<br/>
+Экземляры данной книги:
+<br/>
+<table border="1">
+    <div th:each="num : ${CurrentBook.bookInstance}">
+        <tr>
+            <td><a href="/book" th:href="@{/bookInstance/{id}(id = ${num.id})}"> BookInstance </a></td>
+            <td><input type=text readonly th:value="${num.issued}"/></td>
+        </tr>
+    </div>
+</table>
+<br/>
+<a href="/addBookInst"> Добавить экземпляр книги: </a>
+<br/>
+<br/>
+<br/>
+<a href = "/home"> Начальная страница </a>
+</body>
+</html>

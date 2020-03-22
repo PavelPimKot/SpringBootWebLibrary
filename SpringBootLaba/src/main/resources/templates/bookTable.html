@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+Сортировка по:
+<form th:action="sortTable">
+    <p><select name="select" size="3" >
+        <option selected value="Author">Author</option>
+        <option value="Title">Title</option>
+        <option value="PagesNumber">Pages Number</option>
+        <option value="PublishingYear">Publishing Year</option>
+    </select>
+        <input type="submit" value="Отправить"></p>
+</form>
+Список книг:
+<br/>
+<table border="1">
+    <tr>
+        <td>BOOK_FIELDS</td>
+        <td>AUTHORS</td>
+        <td>TITLE</td>
+        <td>PAGES_NUMBER</td>
+        <td>PUBLISHING_YEAR</td>
+    </tr>
+    <div th:each="num : ${books}">
+        <tr>
+            <td><a href="/book" th:href="@{/book/{id}(id = ${num.id})}"> Book </a></td>
+            <td><input type=text readonly th:value="${num.authors}"/></td>
+            <td><input type=text readonly th:value="${num.title}"/></td>
+            <td><input type=number readonly th:value="${num.pagesNumber}"/></td>
+            <td><input type=number readonly th:value="${num.publishingYear}"/></td>
+        </tr>
+    </div>
+</table>
+<br/>
+<a href="/addBook"> Добавить книгу </a>
+<br/>
+<a href="/addBookInst"> Добавить экземпляр книги </a>
+<br/>
+<a href="/search"> Поиск по Названию </a>
+<br/>
+<br/>
+<br/>
+<a href="/home"> Начальная страница </a>
+</body>
+</html>

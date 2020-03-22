@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="@{/addBook}"
+      th:object="${book}" method="GET">
+    Authors:
+    <input type="text" th:field="*{authors}" />
+    <br/>
+    Title:
+    <input type="text" th:field="*{title}" />
+    <br/>
+    Publishing year:
+    <input type="number" th:field="*{publishingYear}" />
+    <br/>
+    Pages Number:
+    <input type="number" th:field="*{pagesNumber}" />
+    <br/>
+    <input type="submit" value="Create"/>
+</form>
+<br/>
+<br/>
+<br/>
+<a href = "/home"> Начальная страница </a>
+</body>
+</html>
