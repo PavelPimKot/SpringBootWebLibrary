@@ -17,6 +17,13 @@
 Результаты поиска::
 <br/>
 <table border="1">
+    <tr>
+        <td>BOOK_FIELDS</td>
+        <td>AUTHORS</td>
+        <td>TITLE</td>
+        <td>PAGES_NUMBER</td>
+        <td>PUBLISHING_YEAR</td>
+    </tr>
     <div th:each="num : ${booksSearch}">
         <tr>
             <td><a href="/book" th:href="@{/book/{id}(id = ${num.id})}"> Book </a></td>

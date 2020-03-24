@@ -38,28 +38,33 @@ public class MainController {
         return "home";
     }
 
-    @RequestMapping(value = {"addBookInst"}, method = RequestMethod.GET)
-    public String saveBookInst(@ModelAttribute("bookInstance") BookInstance bookInstance) {
-        if (!(bookInstance.getBook().getAuthors() == null || bookInstance.getBook().getTitle() == null)) {
-            Book book = bookInstance.getBook();
-            BookInstance toSave;
-            if (bookRepository.
-                    findByAuthorsAndTitleAndPagesNumberAndPublishingYear
-                            (book.getAuthors(), book.getTitle(), book.getPagesNumber(), book.getPublishingYear()).isEmpty()) {
-                toSave = new BookInstance(book, bookInstance.getIssued());
-            } else {
 
-                toSave = new BookInstance(bookRepository.
-                        findByAuthorsAndTitleAndPagesNumberAndPublishingYear
-                                (book.getAuthors(), book.getTitle(), book.getPagesNumber(), book.getPublishingYear()).get(0), bookInstance.getIssued());
-            }
-            bookInstanceRepository.save(toSave);
+
+    @RequestMapping(value = {"/addBookInst/addBookInstance"}, method = RequestMethod.GET)
+    public String saveBookInstSave(Map<String, Object> model,@RequestParam (value = "id") Integer id,
+                               @RequestParam(value = "issued") String issue) {
+        Book book = bookRepository.findById(id).get();
+        boolean issued = false ;
+        if(issue.equals("true")){
+            issued=true;
         }
+        BookInstance bookInstance = new BookInstance(book,issued);
+        bookInstanceRepository.save(bookInstance);
+        return "redirect:/book/" + id.toString();
+    }
+
+
+
+    @RequestMapping(value = {"/addBookInst/{id}"}, method = RequestMethod.GET)
+    public String saveBookInstEntry(Map<String, Object> model,@PathVariable (value = "id") Integer id,
+                               @RequestParam(value = "issued", required = false) String issued) {
+        Book book = bookRepository.findById(id).get();
+        model.put("CurrentBook",book);
         return "addBookInst";
     }
 
     @RequestMapping(value = {"help"}, method = RequestMethod.GET)
-    public String  showHelp() {
+    public String showHelp() {
         return "help";
     }
 
@@ -85,9 +90,9 @@ public class MainController {
     }
 
     @RequestMapping(value = {"sortTable"}, method = RequestMethod.GET)
-    public String sortTable(Map<String, Object> model,@RequestParam(value = "select") String value){
+    public String sortTable(Map<String, Object> model, @RequestParam(value = "select") String value) {
         Iterable<Book> books = null;
-        switch (value){
+        switch (value) {
             case "Author":
                 books = bookRepository.findByOrderByAuthorsAsc();
                 break;
@@ -131,7 +136,7 @@ public class MainController {
     public String deleteBookInst(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
         BookInstance bookInstance = bookInstanceRepository.findById(id).get();
         bookInstanceRepository.deleteById(id);
-        return "redirect:/book/"+bookInstance.getBook().getId();
+        return "redirect:/book/" + bookInstance.getBook().getId();
     }
 
 

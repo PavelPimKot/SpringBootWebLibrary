@@ -5,22 +5,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<form th:action="@{/addBookInst}"
-      th:object="${bookInstance}" method="GET">
+<form th:action="@{addBookInstance}"
+      th:object="${CurrentBook}" method="GET">
     Authors:
-    <input type="text" th:field="*{book.authors}"/>
+    <input type="text"  readonly th:value="*{authors}"/>
     <br/>
     Title:
-    <input type="text" th:field="*{book.title}"/>
+    <input type="text" readonly th:value="*{title}"/>
     <br/>
     Publishing year:
-    <input type="number" th:field="*{book.publishingYear}"/>
+    <input type="number" readonly th:value="*{publishingYear}"/>
     <br/>
     Pages Number:
-    <input type="number" th:field="*{book.pagesNumber}"/>
+    <input type="number" readonly th:value="*{pagesNumber}"/>
     <br/>
+    <input type=hidden th:field="*{id}">
     Issued:
-    <input type="text" th:field="*{issued}"/>
+    <input type="text" name="issued"/>
     <br/>
     <input type="submit" value="Create"/>
 </form>

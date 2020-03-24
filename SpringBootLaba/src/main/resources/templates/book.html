@@ -44,7 +44,7 @@
     </div>
 </table>
 <br/>
-<a href="/addBookInst"> Добавить экземпляр книги: </a>
+<a href="/addBookInst" th:href="@{/addBookInst/{id}(id = ${CurrentBook.id})}" > Добавить экземпляр книги: </a>
 <br/>
 <br/>
 <br/>
