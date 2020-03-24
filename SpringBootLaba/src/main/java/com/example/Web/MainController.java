@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,8 +34,8 @@ public class MainController {
     }
 
     @RequestMapping(value = {"home"}, method = RequestMethod.GET)
-    public void show() {
-
+    public String showHome() {
+        return "home";
     }
 
     @RequestMapping(value = {"addBookInst"}, method = RequestMethod.GET)
@@ -51,8 +52,6 @@ public class MainController {
                 toSave = new BookInstance(bookRepository.
                         findByAuthorsAndTitleAndPagesNumberAndPublishingYear
                                 (book.getAuthors(), book.getTitle(), book.getPagesNumber(), book.getPublishingYear()).get(0), bookInstance.getIssued());
-                bookRepository.findByAuthorsAndTitleAndPagesNumberAndPublishingYear
-                        (book.getAuthors(), book.getTitle(), book.getPagesNumber(), book.getPublishingYear()).get(0).addBookInstance(toSave);
             }
             bookInstanceRepository.save(toSave);
         }
@@ -60,8 +59,8 @@ public class MainController {
     }
 
     @RequestMapping(value = {"help"}, method = RequestMethod.GET)
-    public void show3() {
-
+    public String  showHelp() {
+        return "help";
     }
 
     @RequestMapping(value = {"search"}, method = RequestMethod.GET)
@@ -124,14 +123,15 @@ public class MainController {
     @RequestMapping(value = {"book/deleteBook"}, method = RequestMethod.GET)
     public String deleteBook(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
         bookRepository.deleteById(id);
-        return "delete";
+        return "redirect:/bookTable";
     }
 
 
     @RequestMapping(value = {"bookInstance/deleteBookInstance"}, method = RequestMethod.GET)
     public String deleteBookInst(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
+        BookInstance bookInstance = bookInstanceRepository.findById(id).get();
         bookInstanceRepository.deleteById(id);
-        return "delete";
+        return "redirect:/book/"+bookInstance.getBook().getId();
     }
 
 
@@ -148,6 +148,7 @@ public class MainController {
         if (!(book.getAuthors() == null || book.getTitle() == null)) {
             Book toSave = new Book(book.getAuthors(), book.getTitle(), book.getPublishingYear(), book.getPagesNumber());
             bookRepository.save(toSave);
+            return "redirect:/bookTable";
         }
         return "addBook";
     }

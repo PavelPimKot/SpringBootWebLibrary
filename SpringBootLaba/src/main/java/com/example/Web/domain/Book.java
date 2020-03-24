@@ -4,14 +4,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
+//@Entity — Указывает, что данный бин (класс) является сущностью.
 @Entity
 public class Book implements Serializable {
+
+    //@Id — id колонки
+    //@GeneratedValue — указывает, что данное свойство будет создаваться согласно указанной стратегии.
+    //( в моем случае id генерируется автоматически)
+    //Если мы используем тип генерации по умолчанию,
+    // поставщик сохраняемости будет определять значения на основе типа атрибута первичного ключа.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
+    //@OneToMany — указывает на связь один ко многим. Применяется с другой стороны от сущности с @ManyToOne
+    //mappedBy - в каждой Экземляре будет столбец для id книги к которой он принадлежит
+    //  fetchType - eager - при загрузке книги будут так же загружаться все ее экземпляры
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book",cascade = CascadeType.ALL)
     private Set<BookInstance> bookInstance;
 
     private String authors;
@@ -34,8 +43,8 @@ public class Book implements Serializable {
         this.publishingYear = publishingYear;
     }
 
-    public Book(Integer id,String authors, String title , int publishingYear , int pagesNumber ){
-        this.id=id;
+    public Book(Integer id, String authors, String title, int publishingYear, int pagesNumber) {
+        this.id = id;
         this.authors = authors;
         this.title = title;
         this.pagesNumber = pagesNumber;
@@ -66,7 +75,7 @@ public class Book implements Serializable {
         this.pagesNumber = pagesNumber;
     }
 
-    public void addBookInstance(BookInstance bookInstance){
+    public void addBookInstance(BookInstance bookInstance) {
         this.bookInstance.add(bookInstance);
     }
 
