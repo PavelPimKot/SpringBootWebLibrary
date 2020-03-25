@@ -26,6 +26,6 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
     List<Book> findByAuthorsOrTitleContainingIgnoreCase(String authors, String title);
 
-    List<Book> findByAuthorsAndTitleAndPagesNumberAndPublishingYear(String authors, String title, Integer pagesNumber, Integer publishingYear );
+    List<Book> findByAuthorsAndTitleAndPagesNumberAndPublishingYear(String authors, String title, Integer pagesNumber, Integer publishingYear);
 
 }

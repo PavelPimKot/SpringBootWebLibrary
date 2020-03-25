@@ -16,7 +16,7 @@
         <td>PUBLISHING_YEAR</td>
     </tr>
     <tr>
-        <form  th:action="changeBook" th:object="${CurrentBook}" method="GET">
+        <form th:action="changeBook" th:object="${CurrentBook}" method="GET">
             <td> Book </a></td>
             <td><input type=text readonly th:field="*{id}"/></td>
             <td><input type=text th:field="*{authors}"/></td>
@@ -30,24 +30,28 @@
 <form th:action="deleteBook" th:object="${CurrentBook}" method="GET">
     <input type=hidden th:field="*{id}">
     <br/>
-    <input type=submit value="Удалить данную книгу" >
+    <input type=submit value="Удалить данную книгу">
 </form>
 <br/>
 Экземляры данной книги:
 <br/>
 <table border="1">
+    <tr>
+        <td>ID</td>
+        <td>ISSUED</td>
+    </tr>
     <div th:each="num : ${CurrentBook.bookInstance}">
         <tr>
-            <td><a href="/book" th:href="@{/bookInstance/{id}(id = ${num.id})}"> BookInstance </a></td>
+            <td><a href="/book" th:href="@{/bookInstance/{id}(id = ${num.id})}" th:value="${num.id}"> BookInstance </a></td>
             <td><input type=text readonly th:value="${num.issued}"/></td>
         </tr>
     </div>
 </table>
 <br/>
-<a href="/addBookInst" th:href="@{/addBookInst/{id}(id = ${CurrentBook.id})}" > Добавить экземпляр книги: </a>
+<a href="/addBookInst" th:href="@{/addBookInst/{id}(id = ${CurrentBook.id})}"> Добавить экземпляр книги: </a>
 <br/>
 <br/>
 <br/>
-<a href = "/home"> Начальная страница </a>
+<a href="/home"> Начальная страница </a>
 </body>
 </html>

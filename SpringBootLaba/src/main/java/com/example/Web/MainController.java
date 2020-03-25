@@ -39,27 +39,25 @@ public class MainController {
     }
 
 
-
     @RequestMapping(value = {"/addBookInst/addBookInstance"}, method = RequestMethod.GET)
-    public String saveBookInstSave(Map<String, Object> model,@RequestParam (value = "id") Integer id,
-                               @RequestParam(value = "issued") String issue) {
+    public String saveBookInstSave(Map<String, Object> model, @RequestParam(value = "id") Integer id,
+                                   @RequestParam(value = "issued") String issue) {
         Book book = bookRepository.findById(id).get();
-        boolean issued = false ;
-        if(issue.equals("true")){
-            issued=true;
+        boolean issued = false;
+        if (issue.equals("true")) {
+            issued = true;
         }
-        BookInstance bookInstance = new BookInstance(book,issued);
+        BookInstance bookInstance = new BookInstance(book, issued);
         bookInstanceRepository.save(bookInstance);
         return "redirect:/book/" + id.toString();
     }
 
 
-
     @RequestMapping(value = {"/addBookInst/{id}"}, method = RequestMethod.GET)
-    public String saveBookInstEntry(Map<String, Object> model,@PathVariable (value = "id") Integer id,
-                               @RequestParam(value = "issued", required = false) String issued) {
+    public String saveBookInstEntry(Map<String, Object> model, @PathVariable(value = "id") Integer id,
+                                    @RequestParam(value = "issued", required = false) String issued) {
         Book book = bookRepository.findById(id).get();
-        model.put("CurrentBook",book);
+        model.put("CurrentBook", book);
         return "addBookInst";
     }
 

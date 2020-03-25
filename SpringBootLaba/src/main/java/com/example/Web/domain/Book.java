@@ -20,7 +20,7 @@ public class Book implements Serializable {
     //@OneToMany — указывает на связь один ко многим. Применяется с другой стороны от сущности с @ManyToOne
     //mappedBy - в каждой Экземляре будет столбец для id книги к которой он принадлежит
     //  fetchType - eager - при загрузке книги будут так же загружаться все ее экземпляры
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book", cascade = CascadeType.ALL)
     private Set<BookInstance> bookInstance;
 
     private String authors;

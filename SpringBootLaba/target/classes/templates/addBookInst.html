@@ -7,27 +7,35 @@
 <body>
 <form th:action="@{addBookInstance}"
       th:object="${CurrentBook}" method="GET">
-    Authors:
-    <input type="text"  readonly th:value="*{authors}"/>
-    <br/>
-    Title:
-    <input type="text" readonly th:value="*{title}"/>
-    <br/>
-    Publishing year:
-    <input type="number" readonly th:value="*{publishingYear}"/>
-    <br/>
-    Pages Number:
-    <input type="number" readonly th:value="*{pagesNumber}"/>
-    <br/>
-    <input type=hidden th:field="*{id}">
-    Issued:
-    <input type="text" name="issued"/>
-    <br/>
+    <table>
+        <tr>
+            <td>Authors:</td>
+            <td><input type="text" readonly th:value="*{authors}"/>
+            </td>
+
+        <tr>
+            <td> Title:</td>
+            <td><input type="text" readonly th:value="*{title}"/></td>
+        </tr>
+        <tr>
+            <td> Publishing year:</td>
+            <td><input type="number" readonly th:value="*{publishingYear}"/></td>
+        </tr>
+        <tr>
+            <td> Pages Number:</td>
+            <td><input type="number" readonly th:value="*{pagesNumber}"/></td>
+        </tr>
+        <tr>
+            <input type=hidden th:field="*{id}">
+            <td> Issued:</td>
+            <td><input type="text" name="issued"/></td>
+        </tr>
+    </table>
     <input type="submit" value="Create"/>
 </form>
 <br/>
 <br/>
 <br/>
-<a href = "/home"> Начальная страница </a>
+<a href="/home"> Начальная страница </a>
 </body>
 </html>
